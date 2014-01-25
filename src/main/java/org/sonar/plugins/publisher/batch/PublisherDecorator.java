@@ -19,16 +19,16 @@
  */
 package org.sonar.plugins.publisher.batch;
 
-import org.sonar.plugins.publisher.PublisherMetrics;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.sonar.api.batch.Decorator;
 import org.sonar.api.batch.DecoratorContext;
 import org.sonar.api.measures.MeasureUtils;
-import org.sonar.api.resources.Java;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.resources.Scopes;
+import org.sonar.plugins.java.Java;
+import org.sonar.plugins.publisher.PublisherMetrics;
 
 public class PublisherDecorator implements Decorator {
 

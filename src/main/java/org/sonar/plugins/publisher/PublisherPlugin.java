@@ -19,15 +19,17 @@
  */
  package org.sonar.plugins.publisher;
 
-import org.sonar.plugins.publisher.batch.PublisherDecorator;
-import org.sonar.plugins.publisher.batch.PublisherSensor;
-import org.sonar.plugins.publisher.ui.PublisherWidget;
+import java.util.List;
+
+import org.sonar.api.Extension;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
 import org.sonar.api.SonarPlugin;
+import org.sonar.plugins.publisher.batch.PublisherDecorator;
+import org.sonar.plugins.publisher.batch.PublisherSensor;
+import org.sonar.plugins.publisher.ui.PublisherWidget;
 
-import java.util.Arrays;
-import java.util.List;
+import com.google.common.collect.ImmutableList;
 
 /**
  * This class is the entry point for all extensions
@@ -43,15 +45,12 @@ public final class PublisherPlugin extends SonarPlugin {
   public static final String MY_PROPERTY = "sonar.publisher.myproperty";
 
   // This is where you're going to declare all your Sonar extensions
-  @SuppressWarnings({ "rawtypes", "unchecked" })
-public List getExtensions() {
-    return Arrays.asList(
+public List<Class<? extends Extension>> getExtensions() {
+    return ImmutableList.of(
         // Definitions
         PublisherMetrics.class,
-
         // Batch 
         PublisherSensor.class, PublisherDecorator.class,
-
         // UI
         PublisherWidget.class);
   }

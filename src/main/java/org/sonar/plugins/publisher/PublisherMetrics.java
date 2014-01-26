@@ -25,7 +25,7 @@ import org.sonar.api.measures.Metrics;
 
 import java.util.Arrays;
 import java.util.List;
-
+//This classs is not required
 public final class PublisherMetrics implements Metrics {
 
   // Modify the following metrics (variable name, attributes) to fit your plugin needs

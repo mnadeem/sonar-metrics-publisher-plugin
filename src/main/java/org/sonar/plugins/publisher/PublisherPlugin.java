@@ -25,8 +25,8 @@ import org.sonar.api.Extension;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
 import org.sonar.api.SonarPlugin;
-import org.sonar.plugins.publisher.batch.PublisherDecorator;
-import org.sonar.plugins.publisher.batch.PublisherSensor;
+import org.sonar.plugins.publisher.batch.MetricsPublisherPostJob;
+import org.sonar.plugins.publisher.config.PublisherSettings;
 import org.sonar.plugins.publisher.ui.PublisherWidget;
 
 import com.google.common.collect.ImmutableList;
@@ -36,13 +36,18 @@ import com.google.common.collect.ImmutableList;
  */
 @Properties({
     @Property(
-        key = PublisherPlugin.MY_PROPERTY,
-        name = "Plugin Property",
-        description = "A property for the plugin")})
+        key = PublisherSettings.LISTENER_URL,
+        name = "Listener URL",
+        description = "Example: http://demo.app.org/ it should accept post request"),
+    @Property(
+            key = PublisherSettings.USER_NAME,
+            name = "host user name",
+            description = "if the host is secured"),
+    @Property(
+            key = PublisherSettings.PASSWORD,
+            name = "host password",
+            description = "if the host is secured")})
 public final class PublisherPlugin extends SonarPlugin {
-
-  // modify the following property (variable name, value) to fit your plugin needs
-  public static final String MY_PROPERTY = "sonar.publisher.myproperty";
 
   // This is where you're going to declare all your Sonar extensions
 public List<Class<? extends Extension>> getExtensions() {
@@ -50,7 +55,7 @@ public List<Class<? extends Extension>> getExtensions() {
         // Definitions
         PublisherMetrics.class,
         // Batch 
-        PublisherSensor.class, PublisherDecorator.class,
+        MetricsPublisherPostJob.class,
         // UI
         PublisherWidget.class);
   }

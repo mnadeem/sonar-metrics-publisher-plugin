@@ -21,7 +21,6 @@ package org.sonar.plugins.publisher.ui;
 
 import org.sonar.api.web.*;
 
-
 // Modify or remove annotations to fit your plugin needs
 @UserRole(UserRole.USER)
 @Description("My Widget")

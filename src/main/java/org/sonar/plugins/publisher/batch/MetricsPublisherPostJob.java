@@ -19,6 +19,8 @@
  */
 package org.sonar.plugins.publisher.batch;
 
+import java.io.IOException;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,7 @@ import org.sonar.api.batch.SensorContext;
 import org.sonar.api.resources.Project;
 import org.sonar.plugins.java.Java;
 import org.sonar.plugins.publisher.config.PublisherSettings;
+import org.sonar.plugins.publisher.support.AppData;
 import org.sonar.plugins.publisher.support.MetricsData;
 import org.sonar.plugins.publisher.support.PublisherAdapter;
 
@@ -51,7 +54,15 @@ public class MetricsPublisherPostJob implements PostJob, CheckProject {
 
 	public void executeOn(Project project, SensorContext context) {
 		LOG.debug("Execucing on project {}", project.getName());
-		this.publisherAdapter.publish(buildData());		
+		try {
+			this.publisherAdapter.publish(buildAppData(), buildData());
+		} catch (IOException e) {
+			LOG.error("Error", e);
+		}		
+	}
+
+	private AppData buildAppData() {
+		return null;
 	}
 
 	private MetricsData buildData() {

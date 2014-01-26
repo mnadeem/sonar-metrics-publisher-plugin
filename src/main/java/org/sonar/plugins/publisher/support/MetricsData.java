@@ -19,15 +19,6 @@
  */
 package org.sonar.plugins.publisher.support;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.sonar.api.BatchExtension;
-import org.sonar.api.ServerExtension;
+public class MetricsData {
 
-public class PublisherAdapter implements BatchExtension, ServerExtension {
-	
-	private static final Logger LOG = LoggerFactory.getLogger(PublisherAdapter.class);
-	public void publish(MetricsData data) {
-		LOG.debug("publishing data");
-	}
 }

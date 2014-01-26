@@ -28,15 +28,19 @@ import org.sonar.api.batch.SensorContext;
 import org.sonar.api.resources.Project;
 import org.sonar.plugins.java.Java;
 import org.sonar.plugins.publisher.config.PublisherSettings;
+import org.sonar.plugins.publisher.support.MetricsData;
+import org.sonar.plugins.publisher.support.PublisherAdapter;
 
 public class MetricsPublisherPostJob implements PostJob, CheckProject {
 
 	private static final Logger LOG = LoggerFactory.getLogger(MetricsPublisherPostJob.class);
 
 	private PublisherSettings settings;
+	private PublisherAdapter publisherAdapter;
 
-	public MetricsPublisherPostJob(final PublisherSettings newSettings) {
+	public MetricsPublisherPostJob(final PublisherSettings newSettings, final PublisherAdapter newPublisherAdapter) {
 		this.settings = newSettings;
+		this.publisherAdapter = newPublisherAdapter;
 	}
 
 	public boolean shouldExecuteOnProject(Project project) {
@@ -47,6 +51,10 @@ public class MetricsPublisherPostJob implements PostJob, CheckProject {
 
 	public void executeOn(Project project, SensorContext context) {
 		LOG.debug("Execucing on project {}", project.getName());
-		
+		this.publisherAdapter.publish(buildData());		
+	}
+
+	private MetricsData buildData() {
+		return new MetricsData();
 	}
 }

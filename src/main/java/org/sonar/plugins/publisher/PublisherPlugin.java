@@ -49,7 +49,7 @@ import com.google.common.collect.ImmutableList;
             description = "if the host is secured")})
 public final class PublisherPlugin extends SonarPlugin {
 
-  // This is where you're going to declare all your Sonar extensions
+// This is where you're going to declare all your Sonar extensions
 public List<Class<? extends Extension>> getExtensions() {
     return ImmutableList.of(
         // Definitions

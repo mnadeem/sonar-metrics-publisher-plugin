@@ -30,11 +30,11 @@ import org.sonar.plugins.java.Java;
 import org.sonar.plugins.publisher.config.PublisherSettings;
 
 public class MetricsPublisherPostJob implements PostJob, CheckProject {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(MetricsPublisherPostJob.class);
-	
+
 	private PublisherSettings settings;
-	
+
 	public MetricsPublisherPostJob(final PublisherSettings newSettings) {
 		this.settings = newSettings;
 	}
@@ -46,8 +46,7 @@ public class MetricsPublisherPostJob implements PostJob, CheckProject {
 	}
 
 	public void executeOn(Project project, SensorContext context) {
-		// TODO Auto-generated method stub
+		LOG.debug("Execucing on project {}", project.getName());
 		
 	}
-
 }

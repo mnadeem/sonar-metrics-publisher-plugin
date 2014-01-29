@@ -25,6 +25,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.CheckProject;
+import org.sonar.api.batch.Phase;
 import org.sonar.api.batch.PostJob;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.resources.Project;
@@ -34,6 +35,7 @@ import org.sonar.plugins.publisher.support.AppData;
 import org.sonar.plugins.publisher.support.MetricsData;
 import org.sonar.plugins.publisher.support.PublisherAdapter;
 
+@Phase(name = Phase.Name.POST)
 public class MetricsPublisherPostJob implements PostJob, CheckProject {
 
 	private static final Logger LOG = LoggerFactory.getLogger(MetricsPublisherPostJob.class);
@@ -55,7 +57,7 @@ public class MetricsPublisherPostJob implements PostJob, CheckProject {
 	public void executeOn(Project project, SensorContext context) {
 		LOG.debug("Execucing on project {}", project.getName());
 		try {
-			this.publisherAdapter.publish(buildAppData(), buildData());
+			this.publisherAdapter.publish(buildAppData(), buildData(project));
 		} catch (IOException e) {
 			LOG.error("Error", e);
 		}		
@@ -65,7 +67,8 @@ public class MetricsPublisherPostJob implements PostJob, CheckProject {
 		return null;
 	}
 
-	private MetricsData buildData() {
+	private MetricsData buildData(Project project) {
+
 		return new MetricsData();
 	}
 }

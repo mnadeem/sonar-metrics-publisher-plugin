@@ -19,6 +19,22 @@
  */
 package org.sonar.plugins.publisher.support;
 
+import java.util.Date;
+
+import org.sonar.api.resources.Project;
+
 public class MetricsData {
+	
+	public String projectName;
+	public Date analysisDate;
+	public String description;
+	public String language;
+
+	public MetricsData(Project project) {
+		this.projectName = project.getName();
+		this.analysisDate = project.getAnalysisDate();
+		this.description = project.getDescription();
+		this.language = project.getLanguageKey();
+	}
 
 }

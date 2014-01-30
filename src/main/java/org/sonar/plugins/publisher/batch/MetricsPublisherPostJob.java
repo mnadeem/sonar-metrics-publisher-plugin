@@ -31,7 +31,6 @@ import org.sonar.api.batch.SensorContext;
 import org.sonar.api.resources.Project;
 import org.sonar.plugins.java.Java;
 import org.sonar.plugins.publisher.config.PublisherSettings;
-import org.sonar.plugins.publisher.support.AppData;
 import org.sonar.plugins.publisher.support.MetricsData;
 import org.sonar.plugins.publisher.support.PublisherAdapter;
 
@@ -57,22 +56,15 @@ public class MetricsPublisherPostJob implements PostJob, CheckProject {
 	public void executeOn(Project project, SensorContext context) {
 		LOG.debug("Execucing on project {}", project.getName());
 		try {
-			this.publisherAdapter.publish(buildAppData(), buildData(project));
+			this.publisherAdapter.publish(buildData(project, context));
 		} catch (IOException e) {
 			LOG.error("Error", e);
 		}		
 	}
 
-	private AppData buildAppData() {
-		AppData appData = new AppData();
-		appData.setPassword(this.settings.getPassword());
-		appData.setUrl(this.settings.getListenerURL());
-		appData.setUser(this.settings.getUserName());
-		return appData;
-	}
+	private MetricsData buildData(Project project, SensorContext context) {
+		MetricsData metricsData = new MetricsData(project);
 
-	private MetricsData buildData(Project project) {
-
-		return new MetricsData();
+		return metricsData;
 	}
 }

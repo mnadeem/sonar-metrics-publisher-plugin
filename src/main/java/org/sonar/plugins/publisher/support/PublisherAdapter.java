@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.BatchExtension;
 import org.sonar.api.ServerExtension;
+import org.sonar.plugins.publisher.config.PublisherSettings;
 
 import us.monoid.json.JSONObject;
 import us.monoid.web.Content;
@@ -32,18 +33,21 @@ import us.monoid.web.Resty;
 import static us.monoid.web.Resty.*;
 
 public class PublisherAdapter implements BatchExtension, ServerExtension {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(PublisherAdapter.class);
+
+	private PublisherSettings settings;
 
 	private final Resty resty;
 
-	public PublisherAdapter() {
+	public PublisherAdapter(final PublisherSettings newSettings) {
 		this.resty = new Resty();
+		this.resty.authenticate(newSettings.getListenerURL(), newSettings.getUserName(), newSettings.getPassword().toCharArray());
+		this.settings = newSettings;
 	}
 
-	public void publish(final AppData appData, final MetricsData data) throws IOException {
+	public void publish(final MetricsData data) throws IOException {
 		LOG.debug("publishing data");
-		//this.resty.authenticate(appData.getUrl(), appData.getUser(), appData.getPassword().toCharArray());
-		this.resty.json(appData.getUrl(), put(new Content("text/plain;charset=UTF-8", new JSONObject(data).toString().getBytes())));
+		this.resty.json(settings.getListenerURL(), put(new Content("text/plain;charset=UTF-8", new JSONObject(data).toString().getBytes())));
 	}
 }

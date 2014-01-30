@@ -22,7 +22,6 @@ package org.sonar.plugins.publisher.batch;
 import java.io.IOException;
 import java.util.Collection;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.CheckProject;
@@ -32,7 +31,6 @@ import org.sonar.api.batch.SensorContext;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.MeasuresFilters;
 import org.sonar.api.resources.Project;
-import org.sonar.plugins.java.Java;
 import org.sonar.plugins.publisher.config.PublisherSettings;
 import org.sonar.plugins.publisher.support.MetricsData;
 import org.sonar.plugins.publisher.support.PublisherAdapter;
@@ -51,9 +49,7 @@ public class MetricsPublisherPostJob implements PostJob, CheckProject {
 	}
 
 	public boolean shouldExecuteOnProject(Project project) {
-		return StringUtils.equals(project.getLanguageKey(), Java.KEY)
-				&& !project.isRoot()
-				&& !this.settings.missingMandatoryParameters();
+		return !this.settings.missingMandatoryParameters();
 	}
 
 	public void executeOn(Project project, SensorContext context) {

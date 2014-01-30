@@ -21,6 +21,7 @@ package org.sonar.plugins.publisher.support;
 
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.Metric;
@@ -104,5 +105,10 @@ public class MetricsData {
 
 	public void setErrorAlertCount(long errorAlertCount) {
 		this.errorAlertCount = errorAlertCount;
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 }

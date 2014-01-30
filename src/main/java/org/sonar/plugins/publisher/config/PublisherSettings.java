@@ -73,6 +73,6 @@ public class PublisherSettings implements BatchExtension, ServerExtension {
 	}
 
 	public boolean missingMandatoryParameters() {
-	    return StringUtils.isNotBlank(getListenerURL());
+	    return StringUtils.isBlank(getListenerURL());
 	}
 }

@@ -43,10 +43,14 @@ public class PublisherAdapter implements BatchExtension, ServerExtension {
 
 	public PublisherAdapter(final PublisherSettings newSettings) {
 		this.resty = new Resty();
+		authenticate(newSettings);
+		this.settings = newSettings;
+	}
+
+	private void authenticate(final PublisherSettings newSettings) {
 		if (StringUtils.isNotBlank(newSettings.getUserName()) && StringUtils.isNotBlank(newSettings.getPassword())) {			
 			this.resty.authenticate(newSettings.getListenerURL(), newSettings.getUserName(), newSettings.getPassword().toCharArray());
 		}
-		this.settings = newSettings;
 	}
 
 	public void publish(final MetricsData data) throws IOException {

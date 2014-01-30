@@ -21,6 +21,7 @@ package org.sonar.plugins.publisher.support;
 
 import java.io.IOException;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.BatchExtension;
@@ -42,7 +43,9 @@ public class PublisherAdapter implements BatchExtension, ServerExtension {
 
 	public PublisherAdapter(final PublisherSettings newSettings) {
 		this.resty = new Resty();
-		this.resty.authenticate(newSettings.getListenerURL(), newSettings.getUserName(), newSettings.getPassword().toCharArray());
+		if (StringUtils.isNotBlank(newSettings.getUserName()) && StringUtils.isNotBlank(newSettings.getPassword())) {			
+			this.resty.authenticate(newSettings.getListenerURL(), newSettings.getUserName(), newSettings.getPassword().toCharArray());
+		}
 		this.settings = newSettings;
 	}
 

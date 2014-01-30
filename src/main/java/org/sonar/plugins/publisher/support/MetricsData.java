@@ -48,7 +48,6 @@ public class MetricsData {
 		} else if(isErrorAlert(measure)) {
 			errorAlertCount++;
 		}
-
 	}
 
 	private boolean isWarningAlert(Measure measure) {

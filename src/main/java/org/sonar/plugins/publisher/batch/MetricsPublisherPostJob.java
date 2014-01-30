@@ -64,7 +64,11 @@ public class MetricsPublisherPostJob implements PostJob, CheckProject {
 	}
 
 	private AppData buildAppData() {
-		return null;
+		AppData appData = new AppData();
+		appData.setPassword(this.settings.getPassword());
+		appData.setUrl(this.settings.getListenerURL());
+		appData.setUser(this.settings.getUserName());
+		return appData;
 	}
 
 	private MetricsData buildData(Project project) {

@@ -43,6 +43,7 @@ public class PublisherAdapter implements BatchExtension, ServerExtension {
 
 	public void publish(final AppData appData, final MetricsData data) throws IOException {
 		LOG.debug("publishing data");
+		//this.resty.authenticate(appData.getUrl(), appData.getUser(), appData.getPassword().toCharArray());
 		this.resty.json(appData.getUrl(), put(new Content("text/plain;charset=UTF-8", new JSONObject(data).toString().getBytes())));
 	}
 }

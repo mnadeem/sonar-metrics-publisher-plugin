@@ -8,7 +8,7 @@
 		<version>15</version>
 	</parent>
 
-	<artifactId>sonar-publisher-plugin</artifactId>
+	<artifactId>sonar-metrics-publisher-plugin</artifactId>
 	<packaging>sonar-plugin</packaging>
 	<version>0.1-SNAPSHOT</version>
 

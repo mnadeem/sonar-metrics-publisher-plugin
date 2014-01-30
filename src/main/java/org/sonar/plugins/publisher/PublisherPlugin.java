@@ -27,6 +27,7 @@ import org.sonar.api.Property;
 import org.sonar.api.SonarPlugin;
 import org.sonar.plugins.publisher.batch.MetricsPublisherPostJob;
 import org.sonar.plugins.publisher.config.PublisherSettings;
+import org.sonar.plugins.publisher.support.PublisherAdapter;
 import org.sonar.plugins.publisher.ui.PublisherWidget;
 
 import com.google.common.collect.ImmutableList;
@@ -55,7 +56,7 @@ public List<Class<? extends Extension>> getExtensions() {
         // Definitions
         PublisherMetrics.class,
         // Batch 
-        MetricsPublisherPostJob.class,
+        MetricsPublisherPostJob.class, PublisherSettings.class, PublisherAdapter.class,
         // UI
         PublisherWidget.class);
   }

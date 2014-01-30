@@ -30,7 +30,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<resty.version>0.3.2</resty.version>
-		<sonar.buildVersion>3.7.4</sonar.buildVersion>
+		<sonar.buildVersion>3.6.3</sonar.buildVersion>
 		<sonar.pluginName>SonarQube Publisher Plugin</sonar.pluginName>
 		<jdk.min.version>1.5</jdk.min.version>
 	</properties>

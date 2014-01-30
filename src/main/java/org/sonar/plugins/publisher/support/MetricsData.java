@@ -21,14 +21,19 @@ package org.sonar.plugins.publisher.support;
 
 import java.util.Date;
 
+import org.sonar.api.measures.CoreMetrics;
+import org.sonar.api.measures.Measure;
+import org.sonar.api.measures.Metric;
 import org.sonar.api.resources.Project;
 
 public class MetricsData {
-	
-	public String projectName;
-	public Date analysisDate;
-	public String description;
-	public String language;
+
+	private String projectName;
+	private Date analysisDate;
+	private String description;
+	private String language;
+	private long warnAlertCount;
+	private long errorAlertCount;
 
 	public MetricsData(Project project) {
 		this.projectName = project.getName();
@@ -37,4 +42,68 @@ public class MetricsData {
 		this.language = project.getLanguageKey();
 	}
 
+	public void addMeasure(Measure measure) {
+		if (isWarningAlert(measure)) {
+			warnAlertCount++;
+		} else if(isErrorAlert(measure)) {
+			errorAlertCount++;
+		}
+
+	}
+
+	private boolean isWarningAlert(Measure measure) {
+		return !CoreMetrics.ALERT_STATUS.equals(measure.getMetric()) && Metric.Level.WARN.equals(measure.getAlertStatus());
+	}
+
+	private boolean isErrorAlert(Measure measure) {
+		return !CoreMetrics.ALERT_STATUS.equals(measure.getMetric()) && Metric.Level.ERROR.equals(measure.getAlertStatus());
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public Date getAnalysisDate() {
+		return analysisDate;
+	}
+
+	public void setAnalysisDate(Date analysisDate) {
+		this.analysisDate = analysisDate;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public long getWarnAlertCount() {
+		return warnAlertCount;
+	}
+
+	public void setWarnAlertCount(long warnAlertCount) {
+		this.warnAlertCount = warnAlertCount;
+	}
+
+	public long getErrorAlertCount() {
+		return errorAlertCount;
+	}
+
+	public void setErrorAlertCount(long errorAlertCount) {
+		this.errorAlertCount = errorAlertCount;
+	}
 }
